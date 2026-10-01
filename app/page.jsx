@@ -9,6 +9,7 @@ import GallerySection from "../components/GallerySection";
 import InstaStorySection from "../components/InstaStorySection";
 import SpecialMomentsSection from "../components/SpecialMomentsSection";
 import OxygenSection from "../components/OxygenSection";
+import LiveTimeCounter from "../components/LiveTimeCounter";
 import DistanceSection from "../components/DistanceSection";
 import ReasonsInteractive from "../components/ReasonsInteractive";
 import PromiseSection from "../components/PromiseSection";
@@ -29,6 +30,7 @@ export default function Home() {
         <InstaStorySection />
         <SpecialMomentsSection />
         <OxygenSection />
+        <LiveTimeCounter />
         <DistanceSection />
         <ReasonsInteractive />
         <PromiseSection />

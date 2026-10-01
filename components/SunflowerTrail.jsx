@@ -9,7 +9,7 @@ export default function SunflowerTrail() {
     let last = 0;
     const handleMove = (e) => {
       const now = Date.now();
-      if (now - last < 80) return;
+      if (now - last < 200) return;
       last = now;
       const id = now + Math.random();
       setParticles((prev) => [
@@ -21,7 +21,7 @@ export default function SunflowerTrail() {
           rotation: Math.random() * 360,
           scale: Math.random() * 0.5 + 0.5,
         },
-      ].slice(-15));
+      ].slice(-8));
       setTimeout(() => {
         setParticles((prev) => prev.filter((p) => p.id !== id));
       }, 1200);

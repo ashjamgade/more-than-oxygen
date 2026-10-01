@@ -3,7 +3,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { useRef, useMemo } from "react";
 import * as THREE from "three";
 
-function Particles({ count = 400 }) {
+function Particles({ count = 150 }) {
   const pointsRef = useRef();
   const positions = useMemo(() => {
     const arr = new Float32Array(count * 3);
@@ -17,8 +17,8 @@ function Particles({ count = 400 }) {
 
   useFrame((state) => {
     if (pointsRef.current) {
-      pointsRef.current.rotation.y = state.clock.elapsedTime * 0.02;
-      pointsRef.current.rotation.x = state.clock.elapsedTime * 0.01;
+      pointsRef.current.rotation.y = state.clock.elapsedTime * 0.008;
+      pointsRef.current.rotation.x = state.clock.elapsedTime * 0.004;
     }
   });
 
