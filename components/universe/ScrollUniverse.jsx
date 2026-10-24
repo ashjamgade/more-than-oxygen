@@ -3,6 +3,7 @@ import { useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import SceneCanvas from './SceneCanvas';
+import { useExperience } from '../ExperienceSettings';
 function Tunnel({ progress }) {
   const stars = useRef();
   const positions = useMemo(() => {
@@ -16,8 +17,8 @@ function Tunnel({ progress }) {
   </>;
 }
 const frames=[['A small beginning','5 July 2025. You accepted my request.'],['The moments in between','A conversation. A smile. A familiar name on my screen.'],['A whole world to discover','Your curiosity, your dreams, and everything that makes you, you.']];
-function Caption({index,progress}){const opacity=useTransform(progress,[index/3-.12,index/3+.04,index/3+.23,index/3+.35],[0,1,1,0]);const y=useTransform(progress,[index/3,index/3+.3],[35,-35]);return <motion.div className="cosmic-caption" style={{opacity,y}}><p className="eyebrow">0{index+1} / A journey in light</p><h2>{frames[index][0]}</h2><p>{frames[index][1]}</p></motion.div>;}
-export default function ScrollUniverse(){const ref=useRef();const reduced=useReducedMotion();const {scrollYProgress}=useScroll({target:ref,offset:['start start','end end']});
+function Caption({index,progress}){const opacity=useTransform(progress,[Math.max(0,index/3-.12),index/3+.04,index/3+.23,Math.min(1,index/3+.35)],[index===0?1:0,1,1,0]);const y=useTransform(progress,[index/3,index/3+.3],[35,-35]);return <motion.div className="cosmic-caption" style={{opacity,y}}><p className="eyebrow">0{index+1} / A journey in light</p><h2>{frames[index][0]}</h2><p>{frames[index][1]}</p></motion.div>;}
+export default function ScrollUniverse(){const ref=useRef();const preference=useReducedMotion();const {effects}=useExperience();const reduced=preference||effects==='gentle';const {scrollYProgress}=useScroll({target:ref,offset:['start start','end end']});
  return <section id="universe" data-chapter ref={ref} className={`scroll-universe ${reduced?'still-universe':''}`} aria-label="A cinematic journey through our story">
   <div className="cosmic-sticky"><SceneCanvas fallback={<div className="static-starfield"/>}><Tunnel progress={scrollYProgress}/></SceneCanvas><div className="cosmic-vignette"/>
   {reduced?<div className="still-captions">{frames.map(([title,copy])=><div key={title}><h2>{title}</h2><p>{copy}</p></div>)}</div>:frames.map((_,i)=><Caption key={i} index={i} progress={scrollYProgress}/>)}

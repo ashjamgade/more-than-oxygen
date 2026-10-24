@@ -1,0 +1,7 @@
+"use client";
+import { useState } from 'react';
+import dynamic from 'next/dynamic';
+import SunflowerBloom from './SunflowerBloom';
+const PetalFlower=dynamic(()=>import('./universe/PetalFlower'),{ssr:false,loading:()=> <SunflowerBloom/>});
+const petals=[['Curiosity','For the questions you ask, and all the worlds they might open.'],['Warmth','For the warmth you bring to an ordinary conversation.'],['Courage','For beginning a new chapter, even when so much is unfamiliar.'],['Little moments','For the little moments that have made me smile since we started talking.'],['Your dreams','For your dreams, and the space to follow them in your own way.'],['Being you','For all the things I am still getting to know about you.']];
+export default function ExploreSunflower(){const [selected,setSelected]=useState(0);return <section className="explore-sunflower"><div className="chapter-heading"><p className="eyebrow">Six little reasons, one sunflower</p><h2>A little sunshine.<br/><em>Made of you.</em></h2><p>Drag the flower to explore it. Touch a petal, or choose a word below.</p></div><div className="petal-flower-stage"><PetalFlower onSelect={setSelected}/></div><div className="petal-options" aria-label="Explore a sunflower petal">{petals.map(([title],i)=><button key={title} aria-pressed={selected===i} onClick={()=>setSelected(i)}>{title}</button>)}</div><div className="petal-message" role="status"><h3>{petals[selected][0]}</h3><p>{petals[selected][1]}</p></div></section>;}

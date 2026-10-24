@@ -1,0 +1,2 @@
+import { PERSONAL } from '../lib/personal';
+export default function LittleThings(){return <section className="little-things"><div className="chapter-heading"><p className="eyebrow">The things that stay</p><h2>Small details.<br/><em>A lot of meaning.</em></h2></div><div className="little-things-grid">{PERSONAL.littleThings.map((item,i)=><article key={item.title}><span>0{i+1}</span><h3>{item.title}</h3><p>{item.copy}</p></article>)}</div></section>;}
