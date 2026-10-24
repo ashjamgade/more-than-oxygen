@@ -4,11 +4,11 @@ import test from 'node:test';
 async function sourceModule(path) { return import('data:text/javascript;base64,' + Buffer.from(await readFile(new URL(path, import.meta.url), 'utf8')).toString('base64')); }
 const { STORY, elapsedSince } = await sourceModule('../lib/story.js');
 const { geoPoint, CITIES, LAND, inPolygon } = await sourceModule('../lib/globe.js');
-test('counter begins at midnight IST on 25 July, independently of viewer timezone', () => {
- assert.equal(new Date(STORY.counterStart).toISOString(), '2025-07-24T18:30:00.000Z');
- assert.deepEqual(elapsedSince(STORY.counterStart, Date.parse('2025-07-25T18:30:00Z')), {days:1,hours:0,minutes:0,seconds:0});
- assert.deepEqual(elapsedSince(STORY.counterStart, Date.parse('2025-07-24T18:29:59Z')), {days:0,hours:0,minutes:0,seconds:0});
- assert.deepEqual(elapsedSince(STORY.counterStart, Date.parse('2025-07-26T19:32:03Z')), {days:2,hours:1,minutes:2,seconds:3});
+test('counter begins at midnight IST on 5 July, independently of viewer timezone', () => {
+ assert.equal(new Date(STORY.counterStart).toISOString(), '2025-07-04T18:30:00.000Z');
+ assert.deepEqual(elapsedSince(STORY.counterStart, Date.parse('2025-07-05T18:30:00Z')), {days:1,hours:0,minutes:0,seconds:0});
+ assert.deepEqual(elapsedSince(STORY.counterStart, Date.parse('2025-07-04T18:29:59Z')), {days:0,hours:0,minutes:0,seconds:0});
+ assert.deepEqual(elapsedSince(STORY.counterStart, Date.parse('2025-07-06T19:32:03Z')), {days:2,hours:1,minutes:2,seconds:3});
  assert.equal(STORY.acceptedDate, '2025-07-05');
 });
 test('Mumbai and Sydney clocks use explicit zones across Sydney daylight saving', () => {

@@ -1,6 +1,6 @@
 # More Than Oxygen
 
-A private, personal universe for Dolly: a shorter main story, optional memory album, light/dark themes, interactive flowers and research nodes, city lighting, an anniversary capsule, and a sunflower postcard.
+A private, personal universe for Dolly: a shorter main story, optional memory album, light/dark themes, interactive flowers and research nodes, city lighting, a new-job celebration letter, and a sunflower postcard.
 
 ## Configure before deployment
 
@@ -30,7 +30,7 @@ npm start
 
 ## Personal details and missing media
 
-`lib/story.js` contains the accepted-request date (5 July 2025), counter start (25 July 2025, midnight IST), joining date (19 October 2026), city time zones and memory captions. Some editorial dates also appear in chapter copy.
+`lib/story.js` contains the accepted-request date (5 July 2025), counter start (5 July 2025, midnight IST), joining date (19 October 2026), city time zones and memory captions. Some editorial dates also appear in chapter copy.
 
 `lib/personal.js` holds the short personal note and small verified details. No favourite phrases, private anecdotes or recordings were invented. To add Ashwin's real voice, upload the original audio to `public/photos/ashwin-voice-note.m4a`, set `PERSONAL.voiceSrc` to `/photos/ashwin-voice-note.m4a`, and update the transcript to match the recording. The voice player and decorative waveform appear only when a real source is configured; the written note is shown otherwise. Voice/video/background music pause one another.
 
@@ -43,7 +43,7 @@ The current graduation and skirt MP4s contain audio but almost entirely repeated
 - Drag the 3D sunflower and touch its petals. The same six messages are available as keyboard-accessible buttons, including in Gentle effects or without WebGL.
 - Research nodes support mouse, touch and keyboard arrow/Home/End navigation.
 - City cards use each city's current local clock for dawn/day/evening/night colour palettes. These are time-of-day scenes, not astronomical sunrise calculations. Sydney daylight saving uses the named time zone.
-- The anniversary capsule is checked by the server. It releases only at **19 October 2027, 00:00 IST**. Before then the API returns the release date but not the letter.
+- The new-job letter is checked by the server and available from **19 October 2026, 00:00 IST**, celebrating her start as a researcher at IIT Bombay.
 - The downloadable postcard is a self-contained SVG, served as an authenticated attachment by `/api/postcard`. It needs no external fonts or images.
 - Full/Gentle effects selection persists locally. Gentle mode replaces 3D with static alternatives and reduces CSS/Framer Motion. System reduced-motion preferences are respected even in Full mode.
 - 3D scenes lazy-mount near the viewport, cap pixel density, and pause offscreen/in hidden tabs. Globe land silhouettes are illustrative. Complete GPU and real-phone visual testing remains recommended; the cloud browser used for QA has no WebGL.

@@ -37,7 +37,7 @@ export default function LiveTimeCounter() {
           A little more time, a little more us
         </p>
         <h2 className="text-white text-3xl md:text-5xl font-light tracking-widest">
-          Our Story, Since 25 July 2025
+          Our Story, Since 5 July 2025
         </h2>
       </motion.div>
 
@@ -76,7 +76,7 @@ export default function LiveTimeCounter() {
       >
         You accepted my request on 5 July 2025.
         <br />
-        This little clock begins on 25 July 2025, at midnight in India.
+        This little clock begins on 5 July 2025, at midnight in India.
       </motion.p>
     </section>
   );

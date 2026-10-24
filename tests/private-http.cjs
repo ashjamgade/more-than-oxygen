@@ -27,8 +27,8 @@ const next=require('next');
 
   response=await fetch(base+'/photos/dolly-1.jpg',{headers:{Cookie:cookie},redirect:'manual'});assert.equal(response.status,200);assert.match(response.headers.get('cache-control'),/no-store/);
   response=await fetch(base+'/api/postcard',{headers:{Cookie:cookie}});assert.equal(response.status,200);assert.match(response.headers.get('content-disposition'),/attachment/);assert.ok((await response.text()).startsWith('<svg'));
-  response=await fetch(base+'/api/capsule',{headers:{Cookie:cookie}});assert.equal(response.status,200);const capsule=await response.json();assert.equal(capsule.locked,true);assert.equal(capsule.paragraphs,undefined);
+  response=await fetch(base+'/api/capsule',{headers:{Cookie:cookie}});assert.equal(response.status,200);const capsule=await response.json();assert.equal(capsule.locked,false);assert.match(capsule.paragraphs[0],/new job as a researcher at IIT Bombay/);
   response=await fetch(base+'/api/private-session',{method:'DELETE',headers:{Origin:base,Cookie:cookie}});assert.equal(response.status,200);assert.match(response.headers.get('set-cookie'),/Max-Age=0/);
-  console.log('PASS: private entry, protected media/API, cross-site rejection, wrong/correct password, signed HttpOnly session, authenticated page/media, sealed capsule, and logout.');
+  console.log('PASS: private entry, protected media/API, cross-site rejection, wrong/correct password, signed HttpOnly session, authenticated page/media, new-job letter, and logout.');
  } finally {server.closeAllConnections();await new Promise(resolve=>server.close(resolve));await app.close();}
 })().then(()=>process.exit(0)).catch(error=>{console.error(error.message);process.exit(1);});

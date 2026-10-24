@@ -20,10 +20,10 @@ test('signed sessions reject tampering, a different key, missing credentials and
  const [payload,signature]=token.split('.');const changed=Buffer.from(JSON.stringify({expires:now+999999999999})).toString('base64url');
  assert.equal(await validSession(`${changed}.${signature}`,key,now),false);
 });
-test('anniversary capsule opens at midnight India time, not the visitor local date',()=>{
- assert.equal(CAPSULE_UNLOCK_AT,'2027-10-19T00:00:00+05:30');
- assert.equal(capsuleAvailable(Date.parse('2027-10-18T18:29:59Z')),false);
- assert.equal(capsuleAvailable(Date.parse('2027-10-18T18:30:00Z')),true);
+test('new-job letter opens at midnight India time, not the visitor local date',()=>{
+ assert.equal(CAPSULE_UNLOCK_AT,'2026-10-19T00:00:00+05:30');
+ assert.equal(capsuleAvailable(Date.parse('2026-10-18T18:29:59Z')),false);
+ assert.equal(capsuleAvailable(Date.parse('2026-10-18T18:30:00Z')),true);
 });
 test('city skies reflect each city clock and Sydney daylight saving',()=>{
  const now=new Date('2026-10-24T11:00:00Z');
