@@ -1,12 +1,5 @@
 import { Inter, Caveat, Playfair_Display } from "next/font/google";
 import "./globals.css";
-import SmoothScroll from "../components/SmoothScroll";
-import SunflowerTrail from "../components/SunflowerTrail";
-import CustomCursor from "../components/CustomCursor";
-import MusicPlayer from "../components/MusicPlayer";
-import ParticleField from "../components/ParticleField";
-import Fireflies from "../components/Fireflies";
-import ButterflyTrail from "../components/ButterflyTrail";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const caveat = Caveat({
@@ -23,7 +16,8 @@ const playfair = Playfair_Display({
 
 export const metadata = {
   title: "For Dolly 🌻",
-  description: "A private space.",
+  description: "A little universe of moments, made with care.",
+  robots: { index: false, follow: false },
 };
 
 export default function RootLayout({ children }) {
@@ -33,13 +27,7 @@ export default function RootLayout({ children }) {
       className={`${inter.variable} ${caveat.variable} ${playfair.variable}`}
     >
       <body className={`${inter.className} bg-[#050505] text-white`}>
-        <ParticleField />
-        <Fireflies />
-        <CustomCursor />
-        <SunflowerTrail />
-        <ButterflyTrail />
-        <MusicPlayer />
-        <SmoothScroll>{children}</SmoothScroll>
+        {children}
       </body>
     </html>
   );
