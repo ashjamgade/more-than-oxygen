@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 
 export default function AchievementsSection() {
   const achievements = [
+    { emoji: "🔬", title: "Researcher at IIT Bombay", subtitle: "Mumbai · Joined 19 October 2026", desc: "A new chapter built on your curiosity, persistence, and love of discovery. So proud of you." },
     { emoji: "🎓", title: "IISER Bhopal", subtitle: "Bachelors & Masters in Data Science and Engineering", desc: "One of India's most prestigious science institutes. You didn't just study there — you thrived." },
     { emoji: "🔬", title: "Research Fellow at IIIT-Hyderabad", subtitle: "Centre for Visual Information Technology (CVIT)", desc: "Chosen to work under Prof. C. V. Jawahar, one of India's leading Computer Vision researchers." },
     { emoji: "🤖", title: "Machine Learning Engineer", subtitle: "Deep Learning · Computer Vision · Multimodal AI", desc: "From LSTM-based NLP models to 3D scene understanding — you've built real-world AI systems." },

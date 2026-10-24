@@ -23,8 +23,8 @@ export default function TwoProfilesSection() {
   const dollyProfile = {
     name: "Sharayu Borade",
     nickname: "Dolly",
-    location: "Hyderabad, India 🇮🇳",
-    role: "Research Fellow at IIIT-H (CVIT)",
+    location: "Mumbai, India 🇮🇳",
+    role: "Researcher at IIT Bombay",
     education: "IISER Bhopal · M.S. Data Science",
     tagline: "Solving the world's problems, one algorithm at a time.",
     emoji: "👩‍🔬",
