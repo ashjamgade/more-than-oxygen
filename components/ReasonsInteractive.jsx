@@ -9,7 +9,7 @@ export default function ReasonsInteractive() {
   const reasons = [
     { num: 1, text: "Because you balance a modern outlook with deep cultural values." },
     { num: 2, text: "Because you love swimming, singing, and travelling — the simple joys of life." },
-    { num: 3, text: "Because you chose the hard path — research at IIIT-H — and you're owning it." },
+    { num: 3, text: "Because you chose the hard path — research, and now a new chapter at IIT Bombay." },
     { num: 4, text: "Because a girl from Akola is now at the forefront of AI research." },
     { num: 5, text: "Because your calm and honesty make the world feel quieter." },
     { num: 6, text: "Because every photo of yours makes me fall for you more." },

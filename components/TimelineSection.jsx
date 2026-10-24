@@ -57,9 +57,15 @@ export default function TimelineSection() {
       emoji: "⏳",
     },
     {
+      date: "19 October 2026",
+      title: "A New Chapter at IIT Bombay",
+      desc: "A new research role, a new city, and so much still to discover. I am so proud of you, Dolly.",
+      emoji: "🔬",
+    },
+    {
       date: "Today",
       title: "Still Falling, Every Single Day",
-      desc: "From Sydney to Hyderabad, from your texts to your stories — I fall for you more every single day. And I made this website, just for you.",
+      desc: "From Sydney to Mumbai, from your texts to your stories — I fall for you more every single day. And I made this website, just for you.",
       emoji: "🌻",
     },
   ];

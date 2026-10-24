@@ -1,85 +1,16 @@
 "use client";
-import { useState, useRef, useEffect } from 'react';
-import { motion } from 'framer-motion';
-
-export default function MusicPlayer() {
-  const [playing, setPlaying] = useState(false);
-  const [ready, setReady] = useState(false);
-  const iframeRef = useRef(null);
-  const playerRef = useRef(null);
-
-  useEffect(() => {
-    let disposed = false;
-    let player;
-    const host = document.createElement('div');
-    iframeRef.current.appendChild(host);
-    const initialize = () => {
-      if (disposed || player || !window.YT?.Player) return;
-      player = new window.YT.Player(host, {
-        height: '200', width: '200', videoId: '2Vv-BfVoq4g',
-        playerVars: { autoplay: 0, controls: 0, loop: 1, playlist: '2Vv-BfVoq4g', playsinline: 1 },
-        events: {
-          onReady: () => { if (!disposed) setReady(true); },
-          onStateChange: event => { if (!disposed) setPlaying(event.data === 1); },
-          onError: () => { if (!disposed) { setReady(false); setPlaying(false); } },
-        },
-      });
-      playerRef.current = player;
-    };
-    if (!document.querySelector('script[src="https://www.youtube.com/iframe_api"]')) {
-      const script = document.createElement('script');
-      script.src = 'https://www.youtube.com/iframe_api';
-      document.head.appendChild(script);
-    }
-    initialize();
-    const poll = setInterval(() => { initialize(); if (player) clearInterval(poll); }, 250);
-    const timeout = setTimeout(() => clearInterval(poll), 20000);
-    return () => { disposed = true; clearInterval(poll); clearTimeout(timeout); player?.destroy(); host.remove(); playerRef.current = null; };
-  }, []);
-
-  const togglePlay = () => {
-    if (!ready || !playerRef.current) return;
-
-    if (playing) {
-      playerRef.current.pauseVideo();
-    } else {
-      playerRef.current.playVideo();
-    }
-
-  };
-
-  return (
-    <>
-      {/* Floating Button */}
-      <motion.button
-        initial={{ opacity: 0, scale: 0 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 3, duration: 0.5 }}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        onClick={togglePlay}
-        disabled={!ready}
-        className="fixed bottom-8 right-8 z-[9999] w-14 h-14 rounded-full bg-white/10 backdrop-blur-md border border-yellow-400/30 flex items-center justify-center text-xl text-white shadow-lg hover:bg-yellow-400/20 transition-all"
-        aria-label={playing ? 'Pause music' : 'Play music'}
-      >
-        {playing ? '⏸️' : '▶️'}
-      </motion.button>
-
-      {/* Hidden iframe — always mounted, just controlled */}
-      <div style={{ position: 'absolute', width: 0, height: 0, overflow: 'hidden', opacity: 0 }}>
-        <div ref={iframeRef} />
-      </div>
-
-      {/* Small hint when not ready */}
-      {!ready && (
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="fixed bottom-24 right-8 text-[10px] text-yellow-400/50 tracking-widest uppercase z-[9999]"
-        >
-          Music unavailable or loading
-        </motion.p>
-      )}
-    </>
-  );
-}
+import { useEffect, useRef, useState } from 'react';
+// A small original ambient score, synthesized locally. No autoplay or third-party player.
+export default function MusicPlayer(){const audio=useRef(null);const [playing,setPlaying]=useState(false);const [muted,setMuted]=useState(false);const [volume,setVolume]=useState(.2);const [expanded,setExpanded]=useState(false);const [error,setError]=useState('');
+ const settings=useRef({volume:.2,muted:false});
+ useEffect(()=>{settings.current={volume,muted};if(audio.current){const {context,gain}=audio.current;gain.gain.setTargetAtTime(muted?0:volume*.32,context.currentTime,.15);}},[volume,muted]);
+ useEffect(()=>()=>{if(audio.current){clearInterval(audio.current.timer);audio.current.context.close();}},[]);
+ async function toggle(){try{if(!audio.current){const AudioContext=window.AudioContext||window.webkitAudioContext;if(!AudioContext)throw Error('unsupported');const context=new AudioContext();const gain=context.createGain();gain.gain.value=settings.current.muted?0:settings.current.volume*.32;const filter=context.createBiquadFilter();filter.type='lowpass';filter.frequency.value=1800;filter.connect(gain);gain.connect(context.destination);
+ const delay=context.createDelay(2);delay.delayTime.value=.62;const feedback=context.createGain();feedback.gain.value=.25;filter.connect(delay);delay.connect(feedback);feedback.connect(delay);feedback.connect(gain);
+ let step=0;const chords=[[130.81,164.81,196],[110,130.81,164.81],[87.31,130.81,174.61],[98,146.83,196]];const melody=[523.25,659.25,587.33,783.99,659.25,523.25,440,392];
+ function note(frequency,duration,level,type='sine'){const osc=context.createOscillator(),envelope=context.createGain();osc.type=type;osc.frequency.value=frequency;const now=context.currentTime;envelope.gain.setValueAtTime(0,now);envelope.gain.linearRampToValueAtTime(level,now+.5);envelope.gain.exponentialRampToValueAtTime(.0001,now+duration);osc.connect(envelope);envelope.connect(filter);osc.start(now);osc.stop(now+duration+.1);osc.onended=()=>{osc.disconnect();envelope.disconnect();};}
+ const phrase=()=>{if(context.state!=='running')return;chords[step%4].forEach(f=>note(f,7,.11,'triangle'));note(melody[step%melody.length],4,.07);step++;};audio.current={context,gain,timer:setInterval(phrase,4500),phrase};await context.resume();phrase();setPlaying(true);setError('');return;}
+ const {context}=audio.current;if(context.state==='running'){await context.suspend();setPlaying(false);}else{await context.resume();setPlaying(true);}setError('');}catch{setError('Audio could not start on this device. Please try again.');setPlaying(false);}}
+ return <div className="soundscape"><button className="soundscape-toggle" onClick={()=>setExpanded(v=>!v)} aria-expanded={expanded} aria-controls="soundscape-panel" aria-label={expanded?'Close music controls':'Open optional music controls'}><span className={`sound-bars ${playing&&!muted?'sound-active':''}`} aria-hidden="true"><i/><i/><i/><i/></span><span>Sound</span></button>
+ <div id="soundscape-panel" className="soundscape-panel" hidden={!expanded}><p className="eyebrow">An optional soundtrack</p><strong>A little atmosphere</strong><p>An original ambient soundscape.<br/>Only plays when you choose.</p><div className="soundscape-actions"><button onClick={toggle} aria-pressed={playing}>{playing?'Pause':'Play soundtrack'}</button><button onClick={()=>setMuted(v=>!v)} aria-pressed={muted}>{muted?'Unmute':'Mute'}</button></div><label htmlFor="music-volume">Volume <span>{Math.round(volume*100)}%</span></label><input id="music-volume" type="range" min="0" max="1" step="0.05" value={volume} onChange={e=>setVolume(Number(e.target.value))}/>{error&&<p role="alert">{error}</p>}</div>
+ </div>;}

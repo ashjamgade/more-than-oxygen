@@ -1,3 +1,5 @@
+import ScrollUniverse from "../components/universe/ScrollUniverse";
+import ResearchChapter from "../components/ResearchChapter";
 import ChapterNav from "../components/ChapterNav";
 import MusicPlayer from "../components/MusicPlayer";
 import PasswordGate from "../components/PasswordGate";
@@ -21,11 +23,13 @@ import FinalQuestion from "../components/FinalQuestion";
 export default function Home() {
   return (
     <PasswordGate>
-      <main id="top" className="bg-[#050505] overflow-x-hidden">
+      <main id="top" className="bg-[#050505]">
         <ChapterNav />
         <MusicPlayer />
         <OpeningScene />
+        <ScrollUniverse />
         <div id="our-story" data-chapter><WhyYouSection /></div>
+        <ResearchChapter />
         <AchievementsSection />
         <TimelineSection />
         <TwoProfilesSection />

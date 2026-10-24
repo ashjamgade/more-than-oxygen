@@ -2,9 +2,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
-// ⚠️ YAHAN APNI DATE DAALO (First video call ki date)
-// Format: "YYYY-MM-DDTHH:MM:SS"
-const FIRST_CALL_DATE = "2025-10-01T20:30:00+05:30";
+import { STORY, elapsedSince } from "../lib/story";
 
 export default function LiveTimeCounter() {
   const [elapsed, setElapsed] = useState({
@@ -16,16 +14,7 @@ export default function LiveTimeCounter() {
 
   useEffect(() => {
     const calculate = () => {
-      const start = new Date(FIRST_CALL_DATE).getTime();
-      const now = Date.now();
-      const diff = Math.max(0, now - start);
-
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
-
-      setElapsed({ days, hours, minutes, seconds });
+      setElapsed(elapsedSince(STORY.counterStart));
     };
 
     calculate();
@@ -45,10 +34,10 @@ export default function LiveTimeCounter() {
         className="text-center mb-16 relative z-10"
       >
         <p className="text-yellow-400 text-sm tracking-[0.3em] uppercase mb-4">
-          Every Second Counts
+          A little more time, a little more us
         </p>
         <h2 className="text-white text-3xl md:text-5xl font-light tracking-widest">
-          Since Our First Video Call
+          Our Story, Since 25 July 2025
         </h2>
       </motion.div>
 
@@ -85,9 +74,9 @@ export default function LiveTimeCounter() {
         transition={{ duration: 1.5, delay: 1 }}
         className="text-center text-gray-400 text-base md:text-lg font-light mt-16 max-w-xl z-10 leading-relaxed"
       >
-        And I've counted <span className="text-yellow-400">every single one</span> of them.
+        You accepted my request on 5 July 2025.
         <br />
-        Because you matter that much to me. 🌻
+        This little clock begins on 25 July 2025, at midnight in India.
       </motion.p>
     </section>
   );

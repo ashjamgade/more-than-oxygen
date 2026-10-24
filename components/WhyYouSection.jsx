@@ -31,7 +31,7 @@ export default function WhyYouSection() {
   }, []);
 
   const reasons = [
-    { title: "Your Mind.", desc: "From IISER Bhopal to IIIT-Hyderabad. Your curiosity about Machine Learning and the universe is breathtaking." },
+    { title: "Your Mind.", desc: "From IISER Bhopal to IIIT-Hyderabad, and now IIT Bombay. Your curiosity about Machine Learning and the universe is breathtaking." },
     { title: "Your Roots.", desc: "A girl from Akola, deeply rooted in culture and family, yet looking at the world with modern, open eyes." },
     { title: "Your Calm.", desc: "In a world that is constantly rushing, your simplicity and honesty are the most refreshing things I have ever encountered." },
     { title: "Your Voice.", desc: "I still remember our first video call. You were in your room, and it was the best call of my life." }

@@ -1,0 +1,4 @@
+"use client";
+import { useRef } from 'react';
+import { useReducedMotion } from 'framer-motion';
+export default function HolographicCard({children,className='',...props}){const ref=useRef();const reduced=useReducedMotion();function move(e){if(reduced||e.pointerType!=='mouse')return;const r=ref.current.getBoundingClientRect();const x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;ref.current.style.setProperty('--tilt-x',`${(y-.5)*-10}deg`);ref.current.style.setProperty('--tilt-y',`${(x-.5)*10}deg`);ref.current.style.setProperty('--shine-x',`${x*100}%`);ref.current.style.setProperty('--shine-y',`${y*100}%`);}function reset(){ref.current.style.setProperty('--tilt-x','0deg');ref.current.style.setProperty('--tilt-y','0deg');}return <button {...props} ref={ref} className={`holographic-card ${className}`} onPointerMove={move} onPointerLeave={reset}>{children}<span className="holographic-sheen" aria-hidden="true"/></button>;}
