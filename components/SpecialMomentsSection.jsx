@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
 const moments = [
@@ -21,6 +21,20 @@ function VideoCard({ item, index }) {
   const [waiting, setWaiting] = useState(false);
   const [error, setError] = useState("");
   const statusId = `moment-status-${index}`;
+
+  useEffect(() => {
+    const yieldAudio = (event) => {
+      if (event.type === "oxygen:soundtrack-start" || event.detail !== item.src) {
+        videoRef.current?.pause();
+      }
+    };
+    window.addEventListener("oxygen:video-start", yieldAudio);
+    window.addEventListener("oxygen:soundtrack-start", yieldAudio);
+    return () => {
+      window.removeEventListener("oxygen:video-start", yieldAudio);
+      window.removeEventListener("oxygen:soundtrack-start", yieldAudio);
+    };
+  }, [item.src]);
 
   async function play() {
     const video = videoRef.current;
@@ -59,11 +73,11 @@ function VideoCard({ item, index }) {
           ref={videoRef}
           src={`${item.src}#t=0.001`}
           controls
-          muted
           playsInline
           preload="metadata"
           aria-label={item.title}
           aria-describedby={statusId}
+          onPlay={() => window.dispatchEvent(new CustomEvent("oxygen:video-start", { detail: item.src }))}
           onPlaying={() => { setPlaying(true); setWaiting(false); setError(""); }}
           onPause={() => { setPlaying(false); setWaiting(false); }}
           onEnded={() => { setPlaying(false); setWaiting(false); }}
@@ -101,7 +115,7 @@ export default function SpecialMomentsSection() {
       <div className="text-center mb-16">
         <span className="text-xs uppercase tracking-widest text-yellow-400/80">Motion & Life</span>
         <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white mt-2">Special Moments</h2>
-        <p className="moment-intro">Press play to watch a little moment. Sound starts muted.</p>
+        <p className="moment-intro">Press play to hear the original video sound. Background music pauses while you watch.</p>
       </div>
       <div className="grid md:grid-cols-2 gap-8">
         {moments.map((item, index) => <VideoCard key={item.src} item={item} index={index} />)}
