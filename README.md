@@ -1,39 +1,49 @@
 # More Than Oxygen
 
-A personal, responsive story for Dolly with two themes, interactive photographs, original ambient music, and optional WebGL scenes.
+A private, personal universe for Dolly: a shorter main story, optional memory album, light/dark themes, interactive flowers and research nodes, city lighting, an anniversary capsule, and a sunflower postcard.
+
+## Configure before deployment
+
+The server gate is **closed by default**. In the Vercel project, add both environment variables to **Production and Preview**, then redeploy:
+
+- `SITE_PASSWORD`: a unique secret phrase of at least 12 characters. Share it privately with Dolly, not in GitHub or chat.
+- `SESSION_SECRET`: a random value of at least 32 characters. Generate one locally with `openssl rand -hex 32`; never commit it.
+
+For local development, copy `.env.example` to `.env.local` and fill in the values. `.env*` files are ignored except the empty example. Until configuration is present, visitors see a preparation screen. The old `oxygen` word is no longer an authentication mechanism.
+
+The server verifies the phrase and issues a seven-day, signed HttpOnly, SameSite=Strict cookie (Secure over HTTPS). The home page independently checks the session, in addition to middleware checks. Media URLs under `/photos/`, the capsule, and postcard download require authentication. The capsule and postcard handlers independently verify the session too. Protected responses are not publicly cached. `Lock this space` clears the browser cookie. Password attempts have a best-effort per-instance limit; use the hosting provider's rate protection for distributed protection.
+
+**The GitHub repository and its history must also be made private.** A website password cannot protect publicly downloadable repository files or copies already shared. The entry page uses standalone HTML and a native form; private application bundles are also gated, rather than exposed just to render the login. The capsule's server-side letter source also lives in the repository. Repository visibility and Vercel environment values were not changed by this code update.
+
+The project upgrades Next.js from 14.2.15 to 15.5.28, following the October 2026 maintenance security release. React and the 3D/motion packages are upgraded together for compatibility; the unused legacy smooth-scroll dependency is removed: https://nextjs.org/blog/nextjs-security-update-october-14-2026
 
 ## Run and check
 
 ```sh
 npm ci
 npm run dev
-node --test tests/story-geometry.test.mjs
+node --test tests/*.test.mjs
 npm run build
+node tests/private-http.cjs
 npm start
 ```
 
-## Personal details
+## Personal details and missing media
 
-`lib/story.js` is the source for the request date (5 July 2025), counter start (25 July 2025, midnight IST), IIT Bombay joining date (19 October 2026), city time zones and memory captions. The joining date and some editorial dates are also displayed in chapter copy. Photos and videos are under `public/photos/`.
+`lib/story.js` contains the accepted-request date (5 July 2025), counter start (25 July 2025, midnight IST), joining date (19 October 2026), city time zones and memory captions. Some editorial dates also appear in chapter copy.
+
+`lib/personal.js` holds the short personal note and small verified details. No favourite phrases, private anecdotes or recordings were invented. To add Ashwin's real voice, upload the original audio to `public/photos/ashwin-voice-note.m4a`, set `PERSONAL.voiceSrc` to `/photos/ashwin-voice-note.m4a`, and update the transcript to match the recording. The voice player and decorative waveform appear only when a real source is configured; the written note is shown otherwise. Voice/video/background music pause one another.
+
+The current graduation and skirt MP4s contain audio but almost entirely repeated still frames. The later supplied uploads were identical. Replace `public/photos/dolly-graduation.mp4` and `public/photos/dolly-skirt.mp4` with actual moving originals when supplied. Playback uses explicit Play, starts with sound, and provides native seek/mute/fullscreen controls and a direct-file fallback.
 
 ## Experience
 
-- Golden particles gather into Dolly's name; the portrait can also be revealed immediately.
-- A sticky, scroll-driven starfield moves the camera through three story moments.
-- An animated discovery-inspired chapter celebrates IIT Bombay.
-- A draggable 3D globe connects geographically placed Mumbai and Sydney markers with a moving light. Land silhouettes are deliberately illustrative, not mapping data.
-- Six floating photographs form a memory constellation. The same memories can be opened with ordinary keyboard-accessible buttons.
-- Photo cards tilt gently on desktop pointers, with a reflective overlay. Their dialog includes previous/next controls and Escape dismissal.
-- An envelope unfolds into a paragraph-by-paragraph letter, with a Show all button.
-- A sunflower blooms at the finale. All three response choices work; answers stay in the page and are not sent or stored.
-- An original ambient score uses Web Audio. Sound starts only after Play; pause, mute and volume are available. No external music service is loaded.
-
-## Motion and compatibility
-
-3D scenes are lazy-mounted near the viewport, pause rendering when offscreen or the tab is hidden, and cap pixel density. WebGL failures and reduced-motion preferences use static fallbacks; memory buttons remain usable. Light/dark selection persists locally and initially follows the device preference. The pre-hydration theme script avoids a flash of the wrong theme.
-
-## Privacy and deployment
-
-The secret-word screen is a surprise reveal, not authentication. A public repository and `public/` media remain publicly accessible. No genuine access-control layer is included.
-
-The project retains its existing Next.js dependency; this feature change is not a dependency/security upgrade. Use a hosting preview to verify the full GPU effects and phone layouts before merging into production.
+- The journey chooser links to the story, research celebration, or letter, with a brief transition in Full effects mode.
+- The main route omits repetitive full-screen sections; the complete gallery, timeline, story frames, achievements, profiles, reasons and promises load only when the visitor opens the optional album.
+- Drag the 3D sunflower and touch its petals. The same six messages are available as keyboard-accessible buttons, including in Gentle effects or without WebGL.
+- Research nodes support mouse, touch and keyboard arrow/Home/End navigation.
+- City cards use each city's current local clock for dawn/day/evening/night colour palettes. These are time-of-day scenes, not astronomical sunrise calculations. Sydney daylight saving uses the named time zone.
+- The anniversary capsule is checked by the server. It releases only at **19 October 2027, 00:00 IST**. Before then the API returns the release date but not the letter.
+- The downloadable postcard is a self-contained SVG, served as an authenticated attachment by `/api/postcard`. It needs no external fonts or images.
+- Full/Gentle effects selection persists locally. Gentle mode replaces 3D with static alternatives and reduces CSS/Framer Motion. System reduced-motion preferences are respected even in Full mode.
+- 3D scenes lazy-mount near the viewport, cap pixel density, and pause offscreen/in hidden tabs. Globe land silhouettes are illustrative. Complete GPU and real-phone visual testing remains recommended; the cloud browser used for QA has no WebGL.

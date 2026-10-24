@@ -1,7 +1,8 @@
 "use client";
 import { useRef } from 'react';
 import { motion, useInView, useReducedMotion } from 'framer-motion';
-export default function ResearchChapter(){const ref=useRef();const visible=useInView(ref,{margin:'-80px'});const reduced=useReducedMotion();return <section ref={ref} className={`research-chapter ${visible&&!reduced?'research-awake':''}`} id="new-chapter" data-chapter>
+import { useExperience } from './ExperienceSettings';
+export default function ResearchChapter(){const ref=useRef();const visible=useInView(ref,{margin:'-80px'});const preference=useReducedMotion();const {effects}=useExperience();const reduced=preference||effects==='gentle';return <section ref={ref} className={`research-chapter ${visible&&!reduced?'research-awake':''}`} id="new-chapter" data-chapter>
  <div className="research-art" aria-hidden="true"><div className="research-core">✦</div>{[0,1,2].map(i=><div className={`research-orbit research-orbit-${i}`} key={i}><span/></div>)}<span className="research-coordinate">Mumbai, India / A new beginning</span><span className="research-label">Curiosity → possibility</span></div>
  <motion.div initial={reduced?false:{opacity:0,y:25}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{duration:.9}} className="research-copy"><p className="eyebrow">19 October 2026 · A new chapter begins</p><span className="research-badge">RESEARCHER / IIT BOMBAY</span><h2>For the questions<br/>you haven't<br/><em>asked yet.</em></h2><p>A new city. New ideas. A whole new world to explore.</p><p>Dolly, I admire the curiosity and determination that brought you here. I hope this chapter brings you discoveries that excite you, people who inspire you, and many little moments of joy.</p><p className="hero-signature">So proud of you. — Ashwin</p></motion.div>
  </section>;}

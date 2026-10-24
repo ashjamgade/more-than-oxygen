@@ -23,7 +23,7 @@ export default function LiveTimeCounter() {
   }, []);
 
   return (
-    <section className="relative min-h-screen w-full bg-[#050505] flex flex-col items-center justify-center py-32 px-6 overflow-hidden">
+    <section className="compact-counter relative w-full bg-[#050505] flex flex-col items-center justify-center py-24 px-6 overflow-hidden">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-yellow-400 rounded-full blur-[200px] opacity-[0.08] pointer-events-none" />
 
       <motion.div

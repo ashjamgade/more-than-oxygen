@@ -2,6 +2,7 @@
 import { Component, Suspense, useEffect, useRef, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { useInView, useReducedMotion } from 'framer-motion';
+import { useExperience } from '../ExperienceSettings';
 class SceneBoundary extends Component {
   state = { failed: false };
   static getDerivedStateFromError() { return { failed: true }; }
@@ -10,7 +11,9 @@ class SceneBoundary extends Component {
 export default function SceneCanvas({ children, fallback, camera = { position: [0, 0, 6], fov: 48 }, className = '' }) {
   const ref = useRef(null);
   const visible = useInView(ref, { margin: '150px' });
-  const reduced = useReducedMotion();
+  const preference = useReducedMotion();
+  const { effects } = useExperience();
+  const reduced = preference || effects === "gentle";
   const [supported, setSupported] = useState(null);
   const [entered, setEntered] = useState(false);
   useEffect(() => { if (visible) setEntered(true); }, [visible]);

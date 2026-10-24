@@ -1,6 +1,6 @@
 import { Inter, Caveat, Playfair_Display } from "next/font/google";
 import "./globals.css";
-import MotionPreferences from "../components/MotionPreferences";
+import ExperienceSettings from "../components/ExperienceSettings";
 import ThemeToggle from "../components/ThemeToggle";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -32,7 +32,7 @@ export default function RootLayout({ children }) {
       <head><script dangerouslySetInnerHTML={{ __html: `(function(){try{var t=localStorage.getItem('oxygen-theme');if(t!=='light'&&t!=='dark')t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.dataset.theme=t;document.documentElement.style.colorScheme=t;}catch(e){var t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.dataset.theme=t;document.documentElement.style.colorScheme=t;}})();` }}/></head>
       <body className={`${inter.className} bg-[#050505] text-white`}>
         <ThemeToggle />
-        <MotionPreferences>{children}</MotionPreferences>
+        <ExperienceSettings>{children}</ExperienceSettings>
       </body>
     </html>
   );
