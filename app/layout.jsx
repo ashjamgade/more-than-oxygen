@@ -2,6 +2,7 @@ import { Inter, Caveat, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import ExperienceSettings from "../components/ExperienceSettings";
 import ThemeToggle from "../components/ThemeToggle";
+import { Analytics } from "@vercel/analytics/next";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const caveat = Caveat({
@@ -33,6 +34,7 @@ export default function RootLayout({ children }) {
       <body className={`${inter.className} bg-[#050505] text-white`}>
         <ThemeToggle />
         <ExperienceSettings>{children}</ExperienceSettings>
+        <Analytics />
       </body>
     </html>
   );
