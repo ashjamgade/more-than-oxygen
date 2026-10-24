@@ -125,3 +125,56 @@ a:focus-visible,button:focus-visible,input:focus-visible { outline:2px solid var
 .question-section footer a { margin:10px 0 0; width:100%; }.question-section { padding-top:90px; }
 }
 @media(prefers-reduced-motion:reduce) { html,body { scroll-behavior:auto!important; } *,*::before,*::after { animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important; } }
+
+/* Theme applies to the invitation, every chapter, and the photograph viewer. */
+html { color-scheme:dark; }
+.theme-toggle { position:fixed; right:22px; bottom:108px; z-index:10002; display:flex; align-items:center; justify-content:center; gap:9px; min-height:44px; padding:12px 16px; color:#eed9ad; background:#171610ed; border:1px solid #e8ca8850; border-radius:50px; backdrop-filter:blur(16px); box-shadow:0 5px 25px #0002; font-size:12px; }
+.theme-moon { display:none; }
+html[data-theme="light"] { color-scheme:light; --background:#faf7f0; --foreground:#29251f; --gold:#806017; --muted:#655e53; }
+html[data-theme="light"] body { background:var(--background); color:var(--foreground); }
+html[data-theme="light"] .theme-toggle { background:#fffdf6f2; color:#51411f; border-color:#92744360; }
+html[data-theme="light"] .theme-sun { display:none; }
+html[data-theme="light"] .theme-moon { display:block; }
+html[data-theme="light"] .bg-\[\#050505\] { background-color:var(--background); }
+html[data-theme="light"] .bg-\[\#0A0A0A\] { background-color:#fffdf8; }
+html[data-theme="light"] .bg-white\/5 { background-color:#80601708; }
+html[data-theme="light"] .bg-white\/10 { background-color:#80601710; }
+html[data-theme="light"] .hover\:bg-white\/10:hover { background-color:#80601718; }
+html[data-theme="light"] .border-white\/10 { border-color:#68532b30; }
+html[data-theme="light"] .text-white { color:#29251f; }
+html[data-theme="light"] .text-white\/60,
+html[data-theme="light"] .text-white\/70 { color:#655e53; }
+html[data-theme="light"] :is(.text-gray-200,.text-gray-300,.text-gray-400,.text-gray-500,.text-gray-600) { color:#655e53; }
+html[data-theme="light"] :is(.text-yellow-400,.text-yellow-400\/70,.text-yellow-400\/80,.text-yellow-400\/50) { color:#806017; }
+html[data-theme="light"] .chapter-nav { background:#faf7f0e8; border-bottom-color:#80601720; }
+html[data-theme="light"] .chapter-nav>div a { color:#655e53; }
+html[data-theme="light"] .chapter-nav a:hover,
+html[data-theme="light"] .chapter-nav a[aria-current] { color:#806017; }
+html[data-theme="light"] :is(.opening-scene,.invitation-screen,.question-section) { background:radial-gradient(ellipse at 70% 25%,#e5ca8838,transparent 65%),#faf7f0; }
+html[data-theme="light"] .hero-copy h1>span { color:#40382c; }
+html[data-theme="light"] :is(.hero-signature,.scroll-note,.invitation-card label,.invitation-card small,.question-section small,.response-note) { color:#6f6046; }
+html[data-theme="light"] .hero-orbit { border-color:#80601718; }
+html[data-theme="light"] .gold-button { background:#e8ca88; border-color:#b7944c; color:#30240c; }
+html[data-theme="light"] .gold-button:hover { background:#f2dca8; }
+html[data-theme="light"] .invitation-card input { background:#fffdf8; border-color:#80601770; color:#29251f; }
+html[data-theme="light"] .memory-section { background:#f0eadf; }
+html[data-theme="light"] .memory-heading>p span { color:#806017; }
+html[data-theme="light"] .memory-photo { background:#fffdf8; border-color:#80601725; box-shadow:0 10px 25px #54401a0a; }
+html[data-theme="light"] .memory-photo>span { color:#705721; }
+html[data-theme="light"] .photo-dialog { background:#fffdf8; color:#29251f; border-color:#80601750; }
+html[data-theme="light"] .photo-controls button { border-color:#80601740; }
+html[data-theme="light"] .answer-buttons>button:not(.gold-button) { border-color:#80601750; color:#51452f; }
+html[data-theme="light"] .question-section footer { color:#655e53; border-color:#80601730; }
+/* Keep lettering legible on cinematic image/video overlays in either theme. */
+html[data-theme="light"] :is(.bg-black,.bg-black\/40,.bg-black\/80,.from-black\/80,.from-black\/90) :is(.text-white,.text-white\/70) { color:#fff; }
+html[data-theme="light"] :is(.from-black\/80,.from-black\/90).text-white { color:#fff; }
+html[data-theme="light"] .portrait-caption { color:white; }
+html[data-theme="light"] ::selection { background:#e8ca88; color:#29251f; }
+@media(max-width:767px) { .theme-toggle { right:18px; bottom:105px; padding:12px; }.theme-label { display:none; } }
+/* The star map is an intentionally dark media scene, like a photograph. */
+html[data-theme="light"] .constellation-stage { background:#101626; }
+html[data-theme="light"] .constellation-stage .text-white { color:#f5f2eb; }
+html[data-theme="light"] .constellation-stage :is(.text-yellow-400,.text-yellow-400\/70) { color:#eed394; }
+html[data-theme="light"] .constellation-stage :is(.text-gray-400,.text-gray-500) { color:#c0bdba; }
+html[data-theme="light"] .constellation-stage .bg-white\/10 { background-color:#ffffff12; }
+html[data-theme="light"] .bg-black .text-yellow-400 { color:#eed394; }

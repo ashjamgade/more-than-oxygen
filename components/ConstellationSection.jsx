@@ -166,7 +166,7 @@ export default function ConstellationSection() {
   ];
 
   return (
-    <section className="relative h-screen w-full bg-[#050505] overflow-hidden">
+    <section className="constellation-stage relative h-screen w-full bg-[#050505] overflow-hidden">
       <div className="absolute top-10 left-0 w-full text-center z-10 pointer-events-none">
         <h2 className="text-white text-3xl md:text-5xl font-light tracking-widest">
           Our Little Universe
