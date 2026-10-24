@@ -243,3 +243,12 @@ html[data-theme="light"] { --living-surface:#f7f3e9; --living-ink:#302c26; --liv
 @media(max-width:767px) { .envelope-flap {height:150px;} }
 /* Clipping horizontal overflow must not create an ancestor scroll container. */
 html, body { overflow-x:clip; }
+
+/* Real media controls remain visible and receive their own pointer events. */
+.moment-video-frame { aspect-ratio:4/5; background:#101010; }
+.moment-video-frame video { display:block; width:100%; height:100%; object-fit:contain; }
+.moment-intro { color:var(--living-muted); font-size:13px; line-height:1.8; margin:18px auto 0; }
+.moment-actions { display:flex; align-items:center; gap:20px; flex-wrap:wrap; margin-top:22px; }
+.moment-actions button { min-height:44px; padding:10px 20px; border:1px solid var(--living-line); border-radius:50px; color:var(--living-ink); background:var(--living-paper); font-size:12px; }
+.moment-actions a { color:var(--gold); font-size:11px; text-decoration:underline; text-underline-offset:4px; }
+.moment-status { color:var(--living-muted); font-size:11px; line-height:1.7; margin-top:16px; min-height:38px; }
