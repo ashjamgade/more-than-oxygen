@@ -6,7 +6,7 @@ A private, personal universe for Dolly: a shorter main story, optional memory al
 
 The server gate is **closed by default**. In the Vercel project, add both environment variables to **Production and Preview**, then redeploy:
 
-- `SITE_PASSWORD`: a unique secret phrase of at least 12 characters. Share it privately with Dolly, not in GitHub or chat.
+- `SITE_PASSWORD`: a unique secret phrase of at least 6 characters. Share it privately with Dolly, not in GitHub or chat.
 - `SESSION_SECRET`: a random value of at least 32 characters. Generate one locally with `openssl rand -hex 32`; never commit it.
 
 For local development, copy `.env.example` to `.env.local` and fill in the values. `.env*` files are ignored except the empty example. Until configuration is present, visitors see a preparation screen. The old `oxygen` word is no longer an authentication mechanism.
