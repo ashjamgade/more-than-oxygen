@@ -6,7 +6,7 @@ export default function DistanceSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [sydneyTime, setSydneyTime] = useState("");
-  const [hyderabadTime, setHyderabadTime] = useState("");
+  const [mumbaiTime, setMumbaiTime] = useState("");
 
   useEffect(() => {
     const update = () => {
@@ -19,7 +19,7 @@ export default function DistanceSection() {
           hour12: true,
         })
       );
-      setHyderabadTime(
+      setMumbaiTime(
         now.toLocaleTimeString("en-IN", {
           timeZone: "Asia/Kolkata",
           hour: "2-digit",
@@ -59,7 +59,7 @@ export default function DistanceSection() {
           Oceans Apart
         </p>
         <h2 className="text-white text-3xl md:text-5xl font-light tracking-widest">
-          Sydney & Hyderabad
+          Sydney & Mumbai
         </h2>
       </motion.div>
 
@@ -87,13 +87,19 @@ export default function DistanceSection() {
           className="backdrop-blur-xl bg-yellow-400/5 border border-yellow-400/30 rounded-2xl p-6 text-center"
         >
           <p className="text-yellow-400/70 text-xs tracking-widest uppercase mb-2">
-            Hyderabad · Dolly
+            Mumbai · Dolly
           </p>
           <p className="text-white text-2xl md:text-4xl font-light tracking-wider tabular-nums">
-            {hyderabadTime}
+            {mumbaiTime}
           </p>
           <p className="text-yellow-400 text-xs mt-2 tracking-widest">👩‍🔬</p>
         </motion.div>
+      </div>
+
+      <div className="relative z-10 text-center max-w-xl mb-16 border border-yellow-400/20 bg-yellow-400/5 rounded-2xl px-8 py-7">
+        <p className="text-yellow-400 text-xs uppercase tracking-[0.2em] mb-3">A brilliant new chapter · 19 October</p>
+        <h3 className="text-white text-2xl font-light mb-3">Researcher at IIT Bombay</h3>
+        <p className="text-gray-400 text-sm leading-relaxed">New questions. New discoveries. A whole new chapter in Mumbai. Dolly, I am so proud of you and excited for everything you will explore.</p>
       </div>
 
       {/* Rotating Globe */}
@@ -151,7 +157,7 @@ export default function DistanceSection() {
             className="absolute w-3 h-3 bg-white rounded-full shadow-[0_0_12px_#fff]"
             style={{ top: "68%", left: "22%" }}
           />
-          {/* Hyderabad Marker */}
+          {/* Mumbai Marker */}
           <motion.div
             animate={{ opacity: [0.5, 1, 0.5] }}
             transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
