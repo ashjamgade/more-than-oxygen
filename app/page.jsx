@@ -1,3 +1,5 @@
+import ChapterNav from "../components/ChapterNav";
+import MusicPlayer from "../components/MusicPlayer";
 import PasswordGate from "../components/PasswordGate";
 import OpeningScene from "../components/OpeningScene";
 import WhyYouSection from "../components/WhyYouSection";
@@ -19,14 +21,16 @@ import FinalQuestion from "../components/FinalQuestion";
 export default function Home() {
   return (
     <PasswordGate>
-      <main className="bg-[#050505] overflow-x-hidden">
+      <main id="top" className="bg-[#050505] overflow-x-hidden">
+        <ChapterNav />
+        <MusicPlayer />
         <OpeningScene />
-        <WhyYouSection />
+        <div id="our-story" data-chapter><WhyYouSection /></div>
         <AchievementsSection />
         <TimelineSection />
         <TwoProfilesSection />
         <ConstellationSection />
-        <GallerySection />
+        <div id="memories" data-chapter><GallerySection /></div>
         <InstaStorySection />
         <SpecialMomentsSection />
         <OxygenSection />
@@ -34,8 +38,8 @@ export default function Home() {
         <DistanceSection />
         <ReasonsInteractive />
         <PromiseSection />
-        <LetterSection />
-        <FinalQuestion />
+        <div id="letter" data-chapter><LetterSection /></div>
+        <div id="question" data-chapter><FinalQuestion /></div>
       </main>
     </PasswordGate>
   );

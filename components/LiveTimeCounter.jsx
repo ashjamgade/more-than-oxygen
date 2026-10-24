@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 // ⚠️ YAHAN APNI DATE DAALO (First video call ki date)
 // Format: "YYYY-MM-DDTHH:MM:SS"
-const FIRST_CALL_DATE = "2025-10-01T20:30:00";
+const FIRST_CALL_DATE = "2025-10-01T20:30:00+05:30";
 
 export default function LiveTimeCounter() {
   const [elapsed, setElapsed] = useState({

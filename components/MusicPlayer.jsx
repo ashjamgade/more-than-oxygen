@@ -8,49 +8,34 @@ export default function MusicPlayer() {
   const iframeRef = useRef(null);
   const playerRef = useRef(null);
 
-  // Load YouTube IFrame API on mount
   useEffect(() => {
-    // If API already loaded, mark ready
-    if (window.YT && window.YT.Player) {
-      initPlayer();
-      return;
-    }
-
-    // Otherwise load it
-    const tag = document.createElement('script');
-    tag.src = 'https://www.youtube.com/iframe_api';
-    document.head.appendChild(tag);
-
-    window.onYouTubeIframeAPIReady = () => {
-      initPlayer();
-    };
-
-    return () => {
-      // Cleanup
-      delete window.onYouTubeIframeAPIReady;
-    };
-  }, []);
-
-  const initPlayer = () => {
-    playerRef.current = new window.YT.Player(iframeRef.current, {
-      height: '0',
-      width: '0',
-      videoId: '2Vv-BfVoq4g', // Ed Sheeran - Perfect
-      playerVars: {
-        autoplay: 0,
-        controls: 0,
-        loop: 1,
-        playlist: '2Vv-BfVoq4g',
-        playsinline: 1,
-        modestbranding: 1,
-      },
-      events: {
-        onReady: () => {
-          setReady(true);
+    let disposed = false;
+    let player;
+    const host = document.createElement('div');
+    iframeRef.current.appendChild(host);
+    const initialize = () => {
+      if (disposed || player || !window.YT?.Player) return;
+      player = new window.YT.Player(host, {
+        height: '200', width: '200', videoId: '2Vv-BfVoq4g',
+        playerVars: { autoplay: 0, controls: 0, loop: 1, playlist: '2Vv-BfVoq4g', playsinline: 1 },
+        events: {
+          onReady: () => { if (!disposed) setReady(true); },
+          onStateChange: event => { if (!disposed) setPlaying(event.data === 1); },
+          onError: () => { if (!disposed) { setReady(false); setPlaying(false); } },
         },
-      },
-    });
-  };
+      });
+      playerRef.current = player;
+    };
+    if (!document.querySelector('script[src="https://www.youtube.com/iframe_api"]')) {
+      const script = document.createElement('script');
+      script.src = 'https://www.youtube.com/iframe_api';
+      document.head.appendChild(script);
+    }
+    initialize();
+    const poll = setInterval(() => { initialize(); if (player) clearInterval(poll); }, 250);
+    const timeout = setTimeout(() => clearInterval(poll), 20000);
+    return () => { disposed = true; clearInterval(poll); clearTimeout(timeout); player?.destroy(); host.remove(); playerRef.current = null; };
+  }, []);
 
   const togglePlay = () => {
     if (!ready || !playerRef.current) return;
@@ -60,7 +45,7 @@ export default function MusicPlayer() {
     } else {
       playerRef.current.playVideo();
     }
-    setPlaying(!playing);
+
   };
 
   return (
@@ -73,6 +58,7 @@ export default function MusicPlayer() {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         onClick={togglePlay}
+        disabled={!ready}
         className="fixed bottom-8 right-8 z-[9999] w-14 h-14 rounded-full bg-white/10 backdrop-blur-md border border-yellow-400/30 flex items-center justify-center text-xl text-white shadow-lg hover:bg-yellow-400/20 transition-all"
         aria-label={playing ? 'Pause music' : 'Play music'}
       >
@@ -91,7 +77,7 @@ export default function MusicPlayer() {
           animate={{ opacity: 1 }}
           className="fixed bottom-24 right-8 text-[10px] text-yellow-400/50 tracking-widest uppercase z-[9999]"
         >
-          Loading music...
+          Music unavailable or loading
         </motion.p>
       )}
     </>
